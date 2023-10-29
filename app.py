@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 # --- 01
 # https://docs.streamlit.io/library/api-reference/write-magic
+st.set_page_config(layout='wide')
 st.markdown('สวัสดี! ***Streamlit***')
 st.write('จากโค้ด', '`st.markdown("สวัสดี!")`')
 # st.write(pd.DataFrame({
@@ -65,13 +66,44 @@ st.title('Layout and Decoration')
 st.write("""
   เราจะลองทำ San Francisco Dataset กันดู
 """)
+tree_df=pd.read_csv('trees.csv')
+df_dbh_grouped = pd.DataFrame(tree_df.groupby(['dbh']).count()['tree_id'])
 col1,col2,col3 = st.columns(3)
 with col1:
-    st.write('Column1')
+    st.line_chart(df_dbh_grouped)
 with col2:
-    st.write('Column2')
+    st.bar_chart(df_dbh_grouped)
 with col3:
-    st.write('Column3')
+    st.area_chart(df_dbh_grouped)
 
 tree_df=pd.read_csv('trees.csv')
 
+
+df_dbh_grouped = pd.DataFrame(tree_df.groupby(['dbh']).count()['tree_id'])
+df_dbh_grouped.columns = ['tree_count']
+st.line_chart(df_dbh_grouped)
+st.caption("กราฟแสดงจำนวนต้นไม้ จัดกลุ่มตามเส้นผ่านศูนย์กลาง")
+st.title('แปลผล')
+st.write("ส่วนใหญ๋ต้นไม้ใน SF มีเส้นผ่านศูนย์กลาง 3 (2721) ต้น")
+st.bar_chart(df_dbh_grouped)
+st.area_chart(df_dbh_grouped)
+
+tap1,tap2,tap3 = st.tabs(['s','s','a'])
+with tap1:
+    st.line_chart(df_dbh_grouped)
+with tap2:
+    st.bar_chart(df_dbh_grouped)
+with tap3:
+    st.area_chart(df_dbh_grouped)
+
+owners=st.sidebar.multiselect('Tree Owner Filter',
+                              tree_df['caretaker'].unique())
+
+if owners:
+    tree_df=tree_df[tree_df['caretaker'].isin(owners)]
+df_dbh_grouped = pd.DataFrame(tree_df.groupby(['dbh']).count()['tree_id'])
+df_dbh_grouped.columns = ['tree_count']
+st.line_chart(df_dbh_grouped)
+tree_df=tree_df.dropna(subset=['longitude','latitude'])
+tree_df=tree_df.sample(n=1000,replace=True)
+st.map(tree_df)
