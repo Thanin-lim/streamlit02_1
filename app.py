@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 from st_pages import Page, show_pages, add_page_title
 
 show_pages([
-    Page("app.py", "Home", "🏠"),
-    Page("pages/tab.py", "Tab Layout", "📖"),
-    Page("pages/map.py", "Map Layout", "🗺️"),
+    Page("app.py", "Home"),
+    Page("pages/tab.py", "Tab Layout"),
+    Page("pages/map.py", "Map Layout"),
     #s
 ])
 # --- 01
