@@ -59,3 +59,19 @@ ax1 = plt.title(graph_title)
 # 2. how to setup limit of x-axis value to 0.0 - 1.0?
 # 3. how to setup more bins, like 20 or 40?
 st.pyplot(fig1)
+
+st.markdown('สวัสดี! *Streamlit*')
+st.title('Layout and Decoration')
+st.write("""
+  เราจะลองทำ San Francisco Dataset กันดู
+""")
+col1,col2,col3 = st.columns(3)
+with col1:
+    st.write('Column1')
+with col2:
+    st.write('Column2')
+with col3:
+    st.write('Column3')
+
+tree_df=pd.read_csv('trees.csv')
+
