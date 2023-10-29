@@ -3,6 +3,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+from st_pages import Page, show_pages, add_page_title
+
+show_pages([
+    Page("app.py", "Home", "🏠"),
+    Page("pages/tab.py", "Tab Layout", "📖"),
+    Page("pages/map.py", "Map Layout", "🗺️"),
+])
 # --- 01
 # https://docs.streamlit.io/library/api-reference/write-magic
 st.set_page_config(layout='wide')
@@ -107,3 +115,6 @@ st.line_chart(df_dbh_grouped)
 tree_df=tree_df.dropna(subset=['longitude','latitude'])
 tree_df=tree_df.sample(n=1000,replace=True)
 st.map(tree_df)
+
+
+
