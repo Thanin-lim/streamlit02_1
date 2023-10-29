@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 # https://docs.streamlit.io/library/api-reference/write-magic
 st.markdown('สวัสดี! ***Streamlit***')
 st.write('จากโค้ด', '`st.markdown("สวัสดี!")`')
+
 # st.write(pd.DataFrame({
 #     'first column': [1, 2, 3, 4],
 #     'second column': [10, 20, 30, 40],
@@ -59,3 +60,24 @@ ax1 = plt.title(graph_title)
 # 2. how to setup limit of x-axis value to 0.0 - 1.0?
 # 3. how to setup more bins, like 20 or 40?
 st.pyplot(fig1)
+
+
+
+
+st.title('Layout ')
+st.write('เราจะลองทำ San Francisco Dataset กันดู')
+col1,col2,col3=st.columns(3)
+with col1:
+    st.write('Column 1')
+with col2:
+    st.write('Column 2')
+with col3:
+    st.write('Column 3')
+
+tree_df =pd.read_csv('trees.csv')
+df_group=pd.DataFrame(tree_df.groupby(['dbh']).count()['tree_id'])
+df_group.columns=['tree_count']
+st.line_chart(df_group)
+st.caption('กราฟ แสดงจำนวนต้นไม้ จัดกลุ่มตามเส้นผ่านศูนย์กลาง')
+st.title('แปลผล')
+st.write('ส่วนใหญ่ของต้นไม้ใน SF มีเส้นผ่านศูนย์กลาง 3ฟุต')
